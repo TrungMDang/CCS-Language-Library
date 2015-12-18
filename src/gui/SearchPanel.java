@@ -22,7 +22,8 @@ import javax.swing.border.BevelBorder;
 /**
  * This is a search panel used by MenuFrame class to build its components.
  * 
- * @author Emrullah Celik (original), Trung Dang (comments and minor change to constructor)
+ * @author Emrullah Celik (original), Trung Dang (comments and minor change to constructor), 
+ * Siyuan Zhou (editing)
  * @version December 11, 2015
  *
  */

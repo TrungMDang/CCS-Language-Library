@@ -19,7 +19,8 @@ import javax.swing.JTextField;
  * This class is the create panel. This class is used in MenuFrame class as a
  * component.
  * 
- * @author Viktoriya Celik, Trung Dang (comments, minor changes to constructor)
+ * @author Viktoriya Celik, Trung Dang (comments, minor changes to constructor), 
+ * Stacie Mashnitskaya (editing)
  * @version 3.0 December 11, 2015
  *
  */
@@ -100,9 +101,7 @@ public class CreatePanel extends JPanel {
 		JButton createButton = new JButton(" Create New Clause");
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (keep.searchTitle(titleText.getText()) == null
-						&& keep.searchKeyword(keywordText.getText()) == null) {
-					keep.add(titleText.getText(), keywordText.getText(), descriptionText.getText(), textText.getText());
+				if (keep.add(titleText.getText(), keywordText.getText(), descriptionText.getText(), textText.getText())) {
 					JOptionPane.showMessageDialog(null, "Your Clause Added to Library!", "Title",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {

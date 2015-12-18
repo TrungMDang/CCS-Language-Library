@@ -7,10 +7,13 @@ import java.util.LinkedList;
  * This class holds all information about the data in language library. This class' methods are
  * called to perform search, add, and view the actual data in library.
  * 
- * @author Scott Zhou, Stacie Mashnitskaya, Trung Dang (comments, minor changes to constructor)
+ * @author Scott Zhou, Stacie Mashnitskaya (editing), Trung Dang (comments, minor changes to constructor)
  * @version 3.0 December 11, 2015
  */
 public class Library {
+	
+	/** A variable indicating an empty state for array.*/
+	private static final int EMPTY = 1;
 	
 	/** The file that contains all data in the library.*/
 	private String input_file;
@@ -84,8 +87,9 @@ public class Library {
 			br = new BufferedReader(new FileReader(goTo));
 			while ((line = br.readLine()) != null) {
 				String[] cell = line.split(split);
-				if (cell[1].equals(keyword)) {
-					System.out.println(cell[0] + " " + cell[1] + " " + cell[2]+ " " + cell[3]);
+				//System.out.println("Cell read: " + Arrays.toString(cell) + " Length: " + cell.length);
+				if (cell.length > EMPTY && cell[1].equals(keyword)) {
+					//System.out.println(cell[0] + " " + cell[1] + " " + cell[2]+ " " + cell[3]);
 					return cell;
 				}
 			}
@@ -115,8 +119,8 @@ public class Library {
 			br = new BufferedReader(new FileReader(goTo));
 			while ((line = br.readLine()) != null) {
 				String[] cell = line.split(split);
-				if (cell[0].equals(title)) {
-					System.out.println(cell[0] + " " + cell[1] + " " + cell[2]+ " " + cell[3]);
+				if (cell.length > EMPTY && cell[0].equals(title)) {
+					//System.out.println(cell[0] + " " + cell[1] + " " + cell[2]+ " " + cell[3]);
 					return cell;
 				}
 			}
@@ -132,7 +136,7 @@ public class Library {
 	 * Add the specified title, keyword, description, and content into the library. The method
 	 * writes all parameters into a .csv file using ',' as delimiter between each parameter.
 	 * 
-	 * @author Scott Zhou, Stacie Mashnitskaya
+	 * @author Scott Zhou
 	 * 
 	 * @param title The title to be inserted
 	 * @param keyword The keyword to be inserted
@@ -143,17 +147,21 @@ public class Library {
 	 * @exception 	FileNotFoundException		if the file is not found
 	 * @exception	IOException					if I/O error occurs during writing of a line
 	 */
-	public void add(String title, String keyword, String description, String content) {
-		try {
-			String goTo = input_file;
-			BufferedWriter bw = new BufferedWriter(new FileWriter(goTo, true));
-			bw.write(title + "," + keyword + "," + description + "," + content);
-			bw.newLine();
-			bw.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public boolean add(String title, String keyword, String description, String content) {
+		if (this.searchKeyword(keyword) == null && this.searchTitle(title) == null) {
+			try {
+				String goTo = input_file;
+				BufferedWriter bw = new BufferedWriter(new FileWriter(goTo, true));
+				bw.write(title + "," + keyword + "," + description + "," + content);
+				bw.newLine();
+				bw.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return true;
+		} 
+		return false;			
 	}
 } //end of class Library
